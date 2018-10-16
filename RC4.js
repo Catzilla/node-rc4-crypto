@@ -30,16 +30,24 @@ class RC4 {
     }
 
     /**
-     * @param {Buffer|string} msg
+     * @param {*} msg
      * @returns {Buffer}
      */
     update(msg) {
-        let msglen = msg.length;
-        let box = this._box;
-
         if (!(msg instanceof Buffer)) {
             msg = new Buffer.from(msg);
         }
+
+        return this.updateFromBuffer(msg);
+    }
+
+    /**
+     * @param {Buffer} msg
+     * @returns {Buffer}
+     */
+    updateFromBuffer(msg) {
+        let msglen = msg.length;
+        let box = this._box;
 
         for (let k = 0; k < msglen; ++k) {
             let i = (this._i + 1) % 0x100;
