@@ -46,16 +46,13 @@ class RC4 {
      * @returns {Buffer}
      */
     updateFromBuffer(msg) {
-        let msglen = msg.length;
-        let box = this._box;
-
-        for (let k = 0; k < msglen; ++k) {
+        for (let k = 0; k < msg.length; ++k) {
             let i = (this._i + 1) % 0x100;
             let j = (this._j + this._box[i]) % 0x100;
-            let s = box[i];
-            box[i] = box[j];
-            box[j] = s;
-            msg[k] ^= box[(box[i] + box[j]) % 0x100];
+            let s = this._box[i];
+            this._box[i] = this._box[j];
+            this._box[j] = s;
+            msg[k] ^= this._box[(this._box[i] + this._box[j]) % 0x100];
             this._i = i;
             this._j = j;
         }
@@ -67,14 +64,12 @@ class RC4 {
      * @param {number} n
      */
     skip(n) {
-        let box = this._box;
-
         for (let k = 0; k < n; ++k) {
             let i = (this._i + 1) % 0x100;
             let j = (this._j + this._box[i]) % 0x100;
-            let s = box[i];
-            box[i] = box[j];
-            box[j] = s;
+            let s = this._box[i];
+            this._box[i] = this._box[j];
+            this._box[j] = s;
             this._i = i;
             this._j = j;
         }
