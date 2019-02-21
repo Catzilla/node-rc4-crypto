@@ -28,7 +28,6 @@ class RC4Transform extends Transform {
 
         if (this._ivSize) {
             const key = crypto.randomBytes(this._ivSize);
-            console.log(key);
             this.push(this._rc4.updateFromBuffer(Buffer.concat([key])));
             this._rc4 = new RC4(key);
             this._ivSize = false;

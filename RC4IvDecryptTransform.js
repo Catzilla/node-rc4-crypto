@@ -27,7 +27,6 @@ class RC4Transform extends Transform {
         }
 
         if (this._ivSize) {
-            console.log(chunk);
             const length = Math.min(this._ivSize, chunk.length);
             this._iv = Buffer.concat([this._iv, this._rc4.updateFromBuffer(chunk.slice(0, length))]);
             this._ivSize -= length;
@@ -36,12 +35,10 @@ class RC4Transform extends Transform {
                 return callback();
             }
 
-            console.log(this._iv);
             this._rc4 = new RC4(this._iv);
             chunk = chunk.slice(length);
             this._iv = Buffer.alloc(0);
             this._ivSize = false;
-            console.log(chunk);
         }
 
         callback(null, this._rc4.updateFromBuffer(chunk));
