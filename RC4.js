@@ -35,7 +35,7 @@ class RC4 {
      */
     update(msg) {
         if (!(msg instanceof Buffer)) {
-            msg = new Buffer.from(msg);
+            msg = Buffer.from(msg);
         }
 
         return this.updateFromBuffer(msg);
