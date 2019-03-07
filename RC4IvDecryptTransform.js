@@ -3,7 +3,7 @@
 const RC4 = require('./RC4');
 const { Transform } = require('stream');
 
-class RC4Transform extends Transform {
+module.exports = class RC4IvDecryptTransform extends Transform {
     /**
      * @param {Buffer|string} key
      * @param {number} ivSize
@@ -43,6 +43,4 @@ class RC4Transform extends Transform {
 
         callback(null, this._rc4.updateFromBuffer(chunk));
     }
-}
-
-module.exports = RC4Transform;
+};

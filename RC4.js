@@ -1,6 +1,6 @@
 'use strict';
 
-class RC4 {
+module.exports = class RC4 {
     /**
      * @param {Buffer|string} key
      */
@@ -74,6 +74,4 @@ class RC4 {
             this._j = j;
         }
     }
-}
-
-module.exports = RC4;
+};

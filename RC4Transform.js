@@ -3,7 +3,7 @@
 const RC4 = require('./RC4');
 const { Transform } = require('stream');
 
-class RC4Transform extends Transform {
+module.exports = class RC4Transform extends Transform {
     /**
      * @param {Buffer|string} key
      */
@@ -21,6 +21,4 @@ class RC4Transform extends Transform {
     _transform(chunk, encoding, callback) {
         callback(null, null === chunk ? null : this._rc4.updateFromBuffer(chunk));
     }
-}
-
-module.exports = RC4Transform;
+};
