@@ -8,9 +8,10 @@ module.exports = class RC4IvEncryptTransform extends Transform {
     /**
      * @param {Buffer|string} key
      * @param {number} ivSize
+     * @param {Object} transformOptions
      */
-    constructor(key, ivSize) {
-        super();
+    constructor(key, ivSize, transformOptions) {
+        super(transformOptions);
         this._rc4 = new RC4(key);
         this._ivSize = ivSize || false;
     }

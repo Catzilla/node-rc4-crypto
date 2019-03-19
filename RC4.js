@@ -6,10 +6,10 @@ module.exports = class RC4 {
      */
     constructor(key) {
         if (!(key instanceof Buffer)) {
-            key = Buffer.from(key);
+            key = Buffer.from ? Buffer.from(key) : new Buffer(key);
         }
 
-        let box = Buffer.alloc(0x100);
+        let box = Buffer.alloc ? Buffer.alloc(0x100) : new Buffer(0x100);
         let keylen = key.length;
         let l = 0;
 
@@ -35,7 +35,7 @@ module.exports = class RC4 {
      */
     update(msg) {
         if (!(msg instanceof Buffer)) {
-            msg = Buffer.from(msg);
+            msg = Buffer.from ? Buffer.from(msg) : new Buffer(msg);
         }
 
         return this.updateFromBuffer(msg);

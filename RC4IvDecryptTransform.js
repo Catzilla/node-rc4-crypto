@@ -7,12 +7,13 @@ module.exports = class RC4IvDecryptTransform extends Transform {
     /**
      * @param {Buffer|string} key
      * @param {number} ivSize
+     * @param {Object} transformOptions
      */
-    constructor(key, ivSize) {
-        super();
+    constructor(key, ivSize, transformOptions) {
+        super(transformOptions);
         this._rc4 = new RC4(key);
         this._ivSize = ivSize || false;
-        this._iv = Buffer.alloc(0);
+        this._iv = Buffer.alloc ? Buffer.alloc(0) : new Buffer(0);
     }
 
     /**
@@ -37,7 +38,7 @@ module.exports = class RC4IvDecryptTransform extends Transform {
 
             this._rc4 = new RC4(this._iv);
             chunk = chunk.slice(length);
-            this._iv = Buffer.alloc(0);
+            this._iv = Buffer.alloc ? Buffer.alloc(0) : new Buffer(0);
             this._ivSize = false;
         }
 
