@@ -1,33 +1,23 @@
-'use strict';
+import RC4 from './RC4';
+import { Transform, TransformCallback, TransformOptions } from 'stream';
 
-const RC4 = require('./RC4');
-const { Transform } = require('stream');
+export default class RC4IvDecryptTransform extends Transform {
+    private _rc4: RC4;
+    private _ivSize: number | boolean;
+    private _iv: Buffer = Buffer.alloc ? Buffer.alloc(0) : new Buffer(0);
 
-module.exports = class RC4IvDecryptTransform extends Transform {
-    /**
-     * @param {Buffer|string} key
-     * @param {number} ivSize
-     * @param {Object} transformOptions
-     */
-    constructor(key, ivSize, transformOptions) {
+    constructor(key: Buffer | string, ivSize: number, transformOptions?: TransformOptions) {
         super(transformOptions);
         this._rc4 = new RC4(key);
         this._ivSize = ivSize || false;
-        this._iv = Buffer.alloc ? Buffer.alloc(0) : new Buffer(0);
     }
 
-    /**
-     * @param {Buffer} chunk
-     * @param {string} encoding
-     * @param {Function} callback
-     * @private
-     */
-    _transform(chunk, encoding, callback) {
+    _transform(chunk: Buffer | null, encoding: string, callback: TransformCallback): void {
         if (null === chunk) {
             return callback(null, null);
         }
 
-        if (this._ivSize) {
+        if (typeof this._ivSize === 'number' && this._ivSize > 0) {
             const length = Math.min(this._ivSize, chunk.length);
             this._iv = Buffer.concat([this._iv, this._rc4.updateFromBuffer(chunk.slice(0, length))]);
             this._ivSize -= length;
@@ -44,4 +34,4 @@ module.exports = class RC4IvDecryptTransform extends Transform {
 
         callback(null, this._rc4.updateFromBuffer(chunk));
     }
-};
+}
