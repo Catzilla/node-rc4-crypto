@@ -1,11 +1,11 @@
 import RC4 from './RC4';
-import { Transform, TransformCallback } from 'stream';
+import { Transform, TransformCallback, TransformOptions } from 'stream';
 
 export default class RC4Transform extends Transform {
     private _rc4: RC4;
 
-    constructor(key: Buffer | string) {
-        super();
+    constructor(key: Buffer | string, transformOptions?: TransformOptions) {
+        super(transformOptions);
         this._rc4 = new RC4(key);
     }
 

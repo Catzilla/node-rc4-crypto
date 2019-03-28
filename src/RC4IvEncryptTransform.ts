@@ -1,5 +1,5 @@
 import RC4 from './RC4';
-import * as crypto from 'crypto';
+import { randomBytes } from 'crypto';
 import { Transform, TransformCallback, TransformOptions } from 'stream';
 
 export default class RC4IvEncryptTransform extends Transform {
@@ -18,7 +18,7 @@ export default class RC4IvEncryptTransform extends Transform {
         }
 
         if (typeof this._ivSize === 'number' && this._ivSize > 0) {
-            const key = crypto.randomBytes(this._ivSize);
+            const key = randomBytes(this._ivSize);
             this.push(this._rc4.updateFromBuffer(Buffer.concat([key])));
             this._rc4 = new RC4(key);
             this._ivSize = false;
