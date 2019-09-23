@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["es2015"],
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "lib": ["es5"],
+    "rootDir": "src",
+    "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
@@ -12,7 +12,8 @@
     "sourceMap": false,
     "inlineSources": false,
     "allowJs": false,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["node_modules/@types"]
   }
 }

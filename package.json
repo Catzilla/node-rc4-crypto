@@ -1,6 +1,6 @@
 {
   "name": "rc4-crypto",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "RC4",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/mvcbox/node-rc4-crypto#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^11.11.6",
-    "typescript": "^3.3.4000"
+    "@types/node": "^12.7.5",
+    "typescript": "^3.6.3"
   }
 }
